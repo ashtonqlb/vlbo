@@ -14,10 +14,9 @@ const path = require("path");
 const express = require("express");
 const app = express();
 
-// Add your routes here
-// e.g. app.get() { ... }
-
 app.get('/', function routeHandler(req, res) { //Homepage
+    app.use('/styles', express.static(path.join(__dirname, 'styles'))); // fetch static stylesheets
+    app.use('/scripts', express.static(path.join(__dirname, 'scripts'))); //fetch static scripts
     res.sendFile(__dirname + '/pages/index.html');
 });
 
