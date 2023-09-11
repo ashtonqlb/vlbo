@@ -17,7 +17,21 @@ const app = express();
 // Add your routes here
 // e.g. app.get() { ... }
 
+app.get('/', function routeHandler(req, res) { //Homepage
+    res.sendFile(__dirname + '/pages/index.html');
+});
 
+app.get('/rentals', function routeHandler(req, res) { //All listings
+    res.send('rentals');
+});
+
+app.get('/signup', function routeHandler(req, res) { //signup page
+    res.send(__dirname + '/pages/index.html#signup');
+});
+
+app.get('/login', function routeHandler(req, res) { //login page
+    res.send(__dirname + '/pages/index.html#login');
+});
 
 // *** DO NOT MODIFY THE LINES BELOW ***
 
