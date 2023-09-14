@@ -1,6 +1,6 @@
 const rentalProperties = [
     {
-        image: '/assets/property1.webp',
+        image: '/property1.webp',
         name: 'Apartment',
         sleeps: 8,
         bedrooms: 1,
@@ -8,7 +8,7 @@ const rentalProperties = [
         price: 700,
     },
     {
-        image: '/assets/property2.jpg',
+        image: '/property2.jpg',
         name: 'A House',
         sleeps: 10,
         bedrooms: 3,
@@ -16,7 +16,7 @@ const rentalProperties = [
         price: 200,
     },
     {
-        image: '/assets/property3.png',
+        image: '/property3.png',
         name: 'The entire city of Toronto I guess',
         sleeps: 250000000,
         bedrooms: 125000000,
