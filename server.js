@@ -14,10 +14,10 @@ const path = require("path");
 const express = require("express");
 const app = express();
 
-app.use(express.static("assets"))
+app.use(express.static(path.join(__dirname + '/assets'))); // fetch static assets
 
 app.get('/', function routeHandler(req, res) { //Homepage
-    res.sendFile(__dirname + '/views/index.html');
+    res.sendFile(path.join(__dirname + '/views/index.html'));
 });
 
 app.get('/rentals', function routeHandler(req, res) { //All listings
@@ -25,11 +25,11 @@ app.get('/rentals', function routeHandler(req, res) { //All listings
 });
 
 app.get('/signup', function routeHandler(req, res) { //signup page
-    res.send(__dirname + '/pages/index.html#signup');
+    res.send(__dirname + '/views/index.html#signup');
 });
 
 app.get('/login', function routeHandler(req, res) { //login page
-    res.send(__dirname + '/pages/index.html#login');
+    res.send(__dirname + '/views/index.html#login');
 });
 
 // *** DO NOT MODIFY THE LINES BELOW ***
