@@ -9,26 +9,30 @@
 * Course/Section: WEB322 NEE
 *
 **************************************************************************************/
-
 const path = require("path");
 const express = require("express");
 const app = express();
 
-app.use(express.static(path.join(__dirname + '/assets'))); // fetch static assets
+app.use(express.static(path.join(__dirname + '/assets')));
 
-app.get('/', function routeHandler(req, res) { //Homepage
+app.use(function (err, req, res, next) {
+    console.error(err.stack)
+    res.status(500).send("Woops!")
+}); 
+
+app.get('/', function routeHandler(req, res) { 
     res.sendFile(path.join(__dirname + '/views/index.html'));
 });
 
-app.get('/rentals', function routeHandler(req, res) { //All listings
+app.get('/rentals', function routeHandler(req, res) { 
     res.send('rentals');
 });
 
-app.get('/signup', function routeHandler(req, res) { //signup page
+app.get('/signup', function routeHandler(req, res) { 
     res.send(__dirname + '/views/index.html#signup');
 });
 
-app.get('/login', function routeHandler(req, res) { //login page
+app.get('/login', function routeHandler(req, res) {
     res.send(__dirname + '/views/index.html#login');
 });
 
