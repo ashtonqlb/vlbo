@@ -11,17 +11,20 @@
 **************************************************************************************/
 const path = require("path");
 const express = require("express");
+const expressLayouts = require('express-ejs-layouts');
+
 const app = express();
+
+app.set('view engine', 'ejs');
+app.use(expressLayouts);
+
+app.set('views', __dirname + '/views');
+app.set('layout', '/layout/main')
 
 app.use(express.static(path.join(__dirname + '/assets')));
 
-app.use(function (err, req, res, next) {
-    console.error(err.stack)
-    res.status(500).send("Woops!")
-}); 
-
-app.get('/', function routeHandler(req, res) { 
-    res.sendFile(path.join(__dirname + '/views/index.html'));
+app.get('/', function routeHandler(req, res) {
+    res.render('home');
 });
 
 app.get('/rentals', function routeHandler(req, res) { 
