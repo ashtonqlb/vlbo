@@ -15,11 +15,11 @@ const expressLayouts = require('express-ejs-layouts');
 
 const app = express();
 
-app.set('view engine', 'ejs');
 app.use(expressLayouts);
+app.set('view engine', 'ejs');
 
 app.set('views', __dirname + '/views');
-app.set('layout', '/layout/main')
+app.set('layout',  __dirname + '/views/layout/main.ejs')
 
 app.use(express.static(path.join(__dirname + '/assets')));
 
