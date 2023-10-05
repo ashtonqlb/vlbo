@@ -16,27 +16,27 @@ const expressLayouts = require('express-ejs-layouts');
 const app = express();
 
 app.use(expressLayouts);
+
 app.set('view engine', 'ejs');
-
 app.set('views', __dirname + '/views');
-app.set('layout',  __dirname + '/views/layout/main.ejs')
+app.set('layout',  __dirname + '/views/layout/main.ejs');
 
-app.use(express.static(path.join(__dirname + '/assets')));
+app.use(express.static(path.join(__dirname, 'assets')));
 
 app.get('/', function routeHandler(req, res) {
     res.render('home');
 });
 
 app.get('/rentals', function routeHandler(req, res) { 
-    res.send('rentals');
+    res.render('rentals');
 });
 
 app.get('/signup', function routeHandler(req, res) { 
-    res.send(__dirname + '/views/index.html#signup');
+    res.render('sign-up');
 });
 
 app.get('/login', function routeHandler(req, res) {
-    res.send(__dirname + '/views/index.html#login');
+    res.render('log-in');
 });
 
 // *** DO NOT MODIFY THE LINES BELOW ***
@@ -47,6 +47,7 @@ app.get('/login', function routeHandler(req, res) {
 // any other route handlers declared before it.
 // This means we can use it as a sort of 'catch all' when no route match is found.
 // We use this function to handle 404 requests to pages that are not found.
+
 app.use((req, res) => {
     res.status(404).send("Page Not Found");
 });
