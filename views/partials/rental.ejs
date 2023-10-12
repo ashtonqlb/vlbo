@@ -1,6 +1,8 @@
-<div id="featured-rentals">
-    <div id="property-container">
-      <script src="/scripts/rental_cards.js"></script>
-    </div>
+<div class="property-card">
+  <img src= <%= rental.imageUrl %> alt="<%= rental.headline %>"
+  <h2><%= rental.headline %></h2>
+  <h3><%= rental.city %>, <%= rental.province %></h3>
+  <p>$<%= rental.pricePerNight %> per Night</p>
+  <p><%= rental.numBedrooms %> Bedrooms</p>
+  <p><%= rental.numBathrooms %> Bathrooms</p>
 </div>
-  

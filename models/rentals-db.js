@@ -67,11 +67,11 @@ rentals = [
     },
 ];
 
-export function getFeaturedRentals() {
+function getFeaturedRentals() {
     return rentals.filter(rental => rental.featured);
 }
 
-export function getRentalsByCityAndProvince() {
+function getRentalsByCityAndProvince() {
     return rentals.reduce((acc, rental) => {
         const key = `${rental.city}, ${rental.province}`;
         if (!acc[key]) {
@@ -81,3 +81,5 @@ export function getRentalsByCityAndProvince() {
         return acc;
     }, {});
 }
+
+module.exports = {getFeaturedRentals, getRentalsByCityAndProvince};

@@ -15,6 +15,8 @@ const expressLayouts = require('express-ejs-layouts');
 
 const app = express();
 
+const db = require("./models/rentals-db.js");
+
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
 
@@ -25,18 +27,20 @@ app.use(express.static(path.join(__dirname + '/assets')));
 
 app.get('/', function routeHandler(req, res) {
     res.render('home');
+    let featured_rentals = db.getFeaturedRentals();
 });
 
 app.get('/rentals', function routeHandler(req, res) { 
-    res.send('rentals');
+    res.render('rentals');
+    let all_rentals = db.getRentalsByCityAndProvince;
 });
 
 app.get('/signup', function routeHandler(req, res) { 
-    res.send(__dirname + '/views/index.html#signup');
+    res.render('sign-up');
 });
 
 app.get('/login', function routeHandler(req, res) {
-    res.send(__dirname + '/views/index.html#login');
+    res.render('log-in');
 });
 
 // *** DO NOT MODIFY THE LINES BELOW ***
