@@ -6,7 +6,7 @@ const rental_db = require("../models/rentals-db.js")
 router.get("/", (req, res) => {
     const all_rentals_grouped = rental_db.getRentalsByCityAndProvince;
 
-    res.render("rentals/list", {
+    res.render("cards/rentals", {
         rentals: all_rentals_grouped,
         title: "Rentals Page"
     });
@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 router.get("/featured", (req, res) => {
     const featured_rentals = rental_db.getFeaturedRentals;
 
-    res.render("rentals/list", {
+    res.render("cards/home", {
         rentals: featured_rentals,
         title: "Rentals Page"
     });

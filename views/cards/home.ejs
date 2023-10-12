@@ -40,4 +40,6 @@
   </p>
 </div>
 
-<%- include ("rentals/list.ejs") %>
+<% for(let rental of rentals) {%>
+  <%- include('./partials/rental', {rental: rental}) %>
+<% } %>
