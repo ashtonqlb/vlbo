@@ -1,1 +1,5 @@
 <%- contentFor('body') %>
+
+<% for(let rental of rentals) {%>
+    <%- include('./partials/rental', {rental: rental}) %>
+  <% } %>

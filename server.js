@@ -12,7 +12,6 @@
 const path = require("path");
 const express = require("express");
 const expressLayouts = require('express-ejs-layouts');
-const rental_db = require("./models/rentals-db.js")
 
 const app = express();
 
@@ -20,20 +19,14 @@ const db = require("./models/rentals-db.js");
 
 app.use(expressLayouts);
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs');``
 app.set('views', __dirname + '/views');
 app.set('layout',  __dirname + '/views/layout/main.ejs');
 
 app.use(express.static(path.join(__dirname, 'assets')));
 
-const cards_controller = require("./controllers/cards-controller");
-
-app.use("/", cards_controller);
-const feat = rental_db.getFeaturedRentals();
-
 app.get('/', function routeHandler(req, res) {
-    res.render('home');
-    let featured_rentals = db.getFeaturedRentals();
+    res.render('home', {featured_rentals: db.getFeaturedRentals});
 });
 
 app.get('/rentals', function routeHandler(req, res) { 
