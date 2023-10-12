@@ -1,18 +1,8 @@
 <div class="property-card">
-    <img src= <%= imageUrl %> alt="<%= headline %>">
-    <h2><%= headline %></h2>
-    <h3><%= city %>, <%= province %></h3>
-    <p>$<%= pricePerNight %> per Night</p>
-    <% if (numBedrooms < 2) { %>
-        <p><%= numBedrooms %> Bedroom</p>
-    <% }
-    else { %>
-        <p><%= numBedrooms %> Bedrooms</p>
-    <% }
-    <% if (numBathrooms < 2) { %>
-        <p><%= numBathrooms %> Bathroom</p>
-    <% }
-    else { %>
-        <p><%= numBathrooms %> Bathrooms</p>
-    <% }
+    <img src= <%= rental.imageUrl %> alt="<%= rental.headline %>"
+    <h2><%= rental.headline %></h2>
+    <h3><%= rental.city %>, <%= rental.province %></h3>
+    <p>$<%= rental.pricePerNight %> per Night</p>
+    <p><%= rental.numBedrooms %> Bedrooms</p>
+    <p><%= rental.numBathrooms %> Bathrooms</p>
 </div>

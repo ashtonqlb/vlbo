@@ -12,6 +12,7 @@
 const path = require("path");
 const express = require("express");
 const expressLayouts = require('express-ejs-layouts');
+const rental_db = require("./models/rentals-db.js")
 
 const app = express();
 
@@ -92,8 +93,12 @@ rentals = [
     },
 ];
 
+const feat = rental_db.getFeaturedRentals();
+
 app.get('/', function routeHandler(req, res) {
-    res.render('home');
+    res.render("home", {
+        rentals: feat,
+    });
 });
 
 app.get('/rentals', function routeHandler(req, res) { 
