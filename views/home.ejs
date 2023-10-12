@@ -40,3 +40,6 @@
   </p>
 </div>
 
+<% for(let new_card of featured_rentals) {%>
+  <%- include('./partials/rental', {rental: new_card}) %>
+<% } %>

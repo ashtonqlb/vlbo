@@ -26,12 +26,11 @@ app.set('layout',  __dirname + '/views/layout/main.ejs');
 app.use(express.static(path.join(__dirname, 'assets')));
 
 app.get('/', function routeHandler(req, res) {
-    res.render('home', {featured_rentals: db.getFeaturedRentals});
+    res.render('home', {featured_rentals: db.getFeaturedRentals()});
 });
 
 app.get('/rentals', function routeHandler(req, res) { 
-    res.render('rentals');
-    let all_rentals = db.getRentalsByCityAndProvince;
+    res.render('rentals', {all_rentals: db.getRentalsByCityAndProvince()});
 });
 
 app.get('/signup', function routeHandler(req, res) { 

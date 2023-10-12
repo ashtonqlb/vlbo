@@ -7,7 +7,7 @@ rentals = [
         pricePerNight: 100,
         city: "Toronto",
         province: "Ontario",
-        imageUrl: "property1.webp",
+        imageUrl: "/images/property1.webp",
         featured: true,
     },
     {
@@ -18,7 +18,7 @@ rentals = [
         pricePerNight: 200,
         city: "Toronto",
         province: "Ontario",
-        imageUrl: "property2.jpg",
+        imageUrl: "/images/property2.jpg",
         featured: false,
     },
     {
@@ -29,7 +29,7 @@ rentals = [
         pricePerNight: 300,
         city: "Toronto",
         province: "Ontario",
-        imageUrl: "property3.png",
+        imageUrl: "/images/property3.png",
         featured: false,
     },
     {
@@ -40,7 +40,7 @@ rentals = [
         pricePerNight: 120,
         city: "Toronto",
         province: "Ontario",
-        imageUrl: "property1.webp",
+        imageUrl: "/images/property1.webp",
         featured: false,
     },
     {
@@ -51,7 +51,7 @@ rentals = [
         pricePerNight: 150,
         city: "Vancouver",
         province: "British Columbia",
-        imageUrl: "property2.jpg",
+        imageUrl: "/images/property2.jpg",
         featured: true,
     },
     {
@@ -62,7 +62,7 @@ rentals = [
         pricePerNight: 180,
         city: "Vancouver",
         province: "British Columbia",
-        imageUrl: "property3.png",
+        imageUrl: "/images/property3.png",
         featured: false,
     },
 ];
