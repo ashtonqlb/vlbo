@@ -1,0 +1,5 @@
+<% if (rentals && rentals.length > 0) { %>
+    <% rentals.forEach(rental => { %>
+        <%- include("../partials/rental", rental) %>
+    <% }); %>
+<% } %>

@@ -23,6 +23,75 @@ app.set('layout',  __dirname + '/views/layout/main.ejs');
 
 app.use(express.static(path.join(__dirname, 'assets')));
 
+rentals = [
+    {
+        headline: "Cozy Downtown Apartment",
+        numSleeps: 2,
+        numBedrooms: 1,
+        numBathrooms: 1,
+        pricePerNight: 100,
+        city: "Toronto",
+        province: "Ontario",
+        imageUrl: "../assets/images/property1.webp",
+        featured: true,
+    },
+    {
+        headline: "Spacious Family Home",
+        numSleeps: 6,
+        numBedrooms: 3,
+        numBathrooms: 2,
+        pricePerNight: 200,
+        city: "Toronto",
+        province: "Ontario",
+        imageUrl: "../assets/images/property2.jpg",
+        featured: false,
+    },
+    {
+        headline: "Luxury Penthouse Suite",
+        numSleeps: 4,
+        numBedrooms: 2,
+        numBathrooms: 2,
+        pricePerNight: 300,
+        city: "Toronto",
+        province: "Ontario",
+        imageUrl: "../assets/images/property3.png",
+        featured: false,
+    },
+    {
+        headline: "Quaint Cottage by the Lake",
+        numSleeps: 3,
+        numBedrooms: 1,
+        numBathrooms: 1,
+        pricePerNight: 120,
+        city: "Toronto",
+        province: "Ontario",
+        imageUrl: "../assets/images/property1.webp",
+        featured: false,
+    },
+    {
+        headline: "Modern Downtown Loft",
+        numSleeps: 2,
+        numBedrooms: 1,
+        numBathrooms: 1,
+        pricePerNight: 150,
+        city: "Vancouver",
+        province: "British Columbia",
+        imageUrl: "../assets/images/property2.jpg",
+        featured: true,
+    },
+    {
+        headline: "Charming Cottage in the Woods",
+        numSleeps: 4,
+        numBedrooms: 2,
+        numBathrooms: 1,
+        pricePerNight: 180,
+        city: "Vancouver",
+        province: "British Columbia",
+        imageUrl: "../assets/images/property3.png",
+        featured: false,
+    },
+];
+
 app.get('/', function routeHandler(req, res) {
     res.render('home');
 });
