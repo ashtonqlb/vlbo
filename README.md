@@ -1,4 +1,4 @@
-# Vlbo
+# Vlbo | WEB322 Project (Fall 2023)
 ![Bun](https://img.shields.io/badge/Bun-%23000000.svg?style=for-the-badge&logo=bun&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
@@ -20,3 +20,19 @@ Available to view on [Cyclic](https://combative-leotard-elk.cyclic.app/)
     ``` bash
     bun install
     ```
+
+# Academic Mumbo Jumbo
+I declare that this assignment is my own work in accordance with the Seneca Academic Policy.
+No part of this assignment has been copied manually or electronically from any other source (including web sites) or distributed to other students.
+
+Student Name  : Ashton Lunken 
+
+Student Email : [abennet@myseneca.ca](mailto:abennet@myseneca.ca?subject=WEB322%20Assignment%20Feedback)
+
+Course/Section: WEB322/NEE
+
+
+## Project URLs
+GitHub Repo : [https://github.com/ashtonqlb/vlbo](https://github.com/ashtonqlb/vlbo)
+
+Cyclic URL : [https://combative-leotard-elk.cyclic.app/](https://combative-leotard-elk.cyclic.app/)
