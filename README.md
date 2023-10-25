@@ -18,7 +18,3 @@ A parody of the [Vrbo](https://www.vrbo.com/) rental website which is also my fi
     ``` bash
     bun install
     ```
-    Optionally, you can use Node instead with
-    ``` bash
-    npm install
-    ```
