@@ -1,45 +1,70 @@
 <%- contentFor('body') %>
 
-<%- include ("partials/hero.ejs") %> 
-<h1>Our promises to you</h1>
+<%- include("partials/hero.ejs") %> 
 
-<div class="info">
-  <i class="fa fa-check-circle"></i>
-  <h3>Peace of mind</h3>
-  <p>
-    Each stay with us will be distinctly unpleasant! We work hard to train
-    the least helpful support team possible, available 10am-12pm on the
-    third Thursday of every month
-  </p>
+<h1 class="text-3xl font-bold my-8">Our promises to you</h1>
+
+<div class="carousel flex flex-col sm:flex-row" data-flickity='{ "wrapAround": true }'>
+
+  <div class="carousel-cell">
+    <div class="card">
+      <div class="card-body">
+        <i class="fas fa-check text-3xl text-yellow-500"></i>
+        <h3 class="card-title">Peace of mind</h3>
+        <p class="card-text">
+          We work hard to train the least helpful support team possible, available 10am-12pm on the third Thursday of every month.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="carousel-cell">
+    <div class="card">
+      <div class="card-body">
+        <i class="fas fa-dollar-sign text-3xl text-yellow-500"></i>
+        <h3 class="card-title">Seamless payment</h3>
+        <p class="card-text">
+          At Vlbo, our patented W2W (Wallet-to-Wallet) technology streamlines
+          the payment process. It is as instantaneous as it is painful.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="carousel-cell">
+    <div class="card">
+      <div class="card-body">
+        <i class="fas fa-home text-3xl text-yellow-500"></i>
+        <h3 class="card-title">Subjugate the nons</h3>
+        <p class="card-text">
+          We promise that every time you rent with us, you're making your city
+          more unaffordable. Doesn't it feel good to make a quick buck?
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="carousel-cell">
+    <div class="card">
+      <div class="card-body">
+        <i class="fas fa-info-circle text-3xl text-yellow-500"></i>
+        <h3 class="card-title">Please don't sue me</h3>
+        <p class="card-text">
+          This website is just satire I actually don't hate short term rentals
+          you guys are cool.
+        </p>
+      </div>
+    </div>
+  </div>
+  
 </div>
 
-<div class="info">
-  <i class="fa fa-dollar-sign"></i>
-  <h3>Seamless payment</h3>
-  <p>
-    At Vlbo, our patented W2W (Wallet-to-Wallet) technology streamlines
-    the payment process. The process is as instantaneous as it is painful
-  </p>
+<div class="carousel flex flex-col sm:flex-row mx-auto justify-center" data-flickity='{ "wrapAround": true }'>
+  <div class="flex flex-wrap ">
+    <% for(let new_card of featured_rentals) {%>
+      <div class="carousel-cell">
+        <%- include('./partials/rental', {rental: new_card}) %>
+      </div>
+    <% } %>
+  </div>
 </div>
-
-<div class="info">
-  <i class="fa fa-home"></i>
-  <h3>Subjugate the nons</h3>
-  <p>
-    We promise that every time you rent with us, you're making your city
-    more unaffordable. Doesn't it feel good to make a quick buck?
-  </p>
-</div>
-
-<div class="info">
-  <i class="fa fa-info-circle"></i>
-  <h3>Please don't sue me</h3>
-  <p>
-    This website is just satire I actually don't hate short term rentals
-    you guys are cool.
-  </p>
-</div>
-
-<% for(let new_card of featured_rentals) {%>
-  <%- include('./partials/rental', {rental: new_card}) %>
-<% } %>

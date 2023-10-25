@@ -1,8 +1,12 @@
-<div class="property-card">
-  <img src= <%= rental.imageUrl %> alt="<%= rental.headline %>"
-  <h><%= rental.headline %></h>
-  <h3><%= rental.city %>, <%= rental.province %></h3>
-  <p>$<%= rental.pricePerNight %> per Night</p>
-  <p><%= rental.numBedrooms %> Bedrooms</p>
-  <p><%= rental.numBathrooms %> Bathrooms</p>
+<div class="card w-96 bg-base-100 hover:shadow-xl transition-shadow duration-300 ease-in-out px-4 py-2 border-2 border-gray-300">
+  <figure><img src= <%= rental.imageUrl %> alt="<%= rental.headline %>"/></figure>
+  <div class = "card-body">
+    <div class = "card-title">
+      <h><%= rental.headline %></h>
+    </div>
+    <h3><%= rental.city %>, <%= rental.province %></h3>
+    <p>$<%= rental.pricePerNight %> per Night</p>
+    <p><%= rental.numBedrooms %> Bedrooms</p>
+    <p><%= rental.numBathrooms %> Bathrooms</p>
+  </div>
 </div>

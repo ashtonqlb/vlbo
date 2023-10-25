@@ -1,5 +1,11 @@
 <%- contentFor('body') %>
 
-<% for(let rental of rentals) {%>
-    <%- include('./partials/rental', {rental: rental}) %>
-<% } %>
+<div class="carousel flex flex-col sm:flex-row mx-auto justify-center" data-flickity='{ "wrapAround": true }'>
+    <div class="flex flex-wrap">
+        <% for(let rental of rentals) {%>
+            <div class="carousel-cell">
+                <%- include('./partials/rental', {rental: rental}) %>
+            </div>
+        <% } %>
+    </div>
+</div>

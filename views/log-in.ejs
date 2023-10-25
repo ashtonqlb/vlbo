@@ -1,7 +1,27 @@
 <%- contentFor('body') %>
 
-<h1>Welcome back</h1>
+<div class="flex justify-center">
+  <div class="card w-full max-w-xs">
+    <div class="card-body">
+      <h1 class="text-3xl font-bold my-8 text-center mb-4">Welcome back</h1>
 
-<input type="text" id="email" placeholder="Email Address"><br><br>
-<input type="text" id="password" placeholder="Password"><br><br>
-<input type="submit" value="Log in">
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Email</span>
+        </label>
+        <input type="text" id="email" class="input input-bordered input-primary w-full">
+      </div>
+
+      <div class="form-control mt-4">
+        <label class="label">
+          <span class="label-text">Password</span>
+        </label>
+        <input type="password" id="password" class="input input-bordered input-secondary w-full">
+      </div>
+
+      <div class="form-control mt-4">
+        <button class="btn btn-primary w-full">Log in</button>
+      </div>
+    </div>
+  </div>
+</div>
