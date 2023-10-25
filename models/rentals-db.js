@@ -67,11 +67,11 @@ rentals = [
     },
 ];
 
-function getFeaturedRentals() {
+function get_featured_rentals() {
     return rentals.filter(rental => rental.featured);
 }
 
-function getRentalsByCityAndProvince() {
+function get_rentals_by_city_and_province() {
     return rentals.reduce((acc, rental) => {
         const key = `${rental.city}, ${rental.province}`;
         if (!acc[key]) {
@@ -82,4 +82,4 @@ function getRentalsByCityAndProvince() {
     }, {});
 }
 
-module.exports = {getFeaturedRentals, getRentalsByCityAndProvince};
+module.exports = {get_featured_rentals, get_rentals_by_city_and_province};

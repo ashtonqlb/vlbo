@@ -11,35 +11,35 @@
 **************************************************************************************/
 const path = require("path");
 const express = require("express");
-const expressLayouts = require('express-ejs-layouts');
+const express_layouts = require("express-ejs-layouts");
 
 const app = express();
 
-const db = require("./models/rentals-db.js");
+const rentals_controller = require("./controllers/rentals_controller.js");
 
-app.use(expressLayouts);
+app.use(express_layouts);
 
-app.set('view engine', 'ejs');``
-app.set('views', __dirname + '/views');
-app.set('layout',  __dirname + '/views/layout/main.ejs');
+app.set("view engine", "ejs");
+app.set("views", __dirname + "/views");
+app.set("layout", __dirname + "/views/layout/main.ejs");
 
-app.use(express.static(path.join(__dirname, 'assets')));
+app.use(express.static(path.join(__dirname, "assets")));
 
-app.get('/', function routeHandler(req, res) {
-    res.render('home', {featured_rentals: db.getFeaturedRentals()});
+app.get("/", rentals_controller.get_featured_rentals);
+
+app.get("/rentals", rentals_controller.get_rentals_by_city_and_province);
+
+app.get("/signup", function routeHandler(req, res) {
+  res.render("sign-up");
 });
 
-app.get('/rentals', function routeHandler(req, res) { 
-    res.render('rentals', {all_rentals: db.getRentalsByCityAndProvince()});
+app.get("/login", function routeHandler(req, res) {
+  res.render("log-in");
 });
 
-app.get('/signup', function routeHandler(req, res) { 
-    res.render('sign-up');
-});
-
-app.get('/login', function routeHandler(req, res) {
-    res.render('log-in');
-});
+app.get("/welcome", function routeHandler(req, res) {
+    res.render("welcome");
+  });
 
 // *** DO NOT MODIFY THE LINES BELOW ***
 
