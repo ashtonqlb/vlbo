@@ -7,7 +7,7 @@
 
 A parody of the [Vrbo](https://www.vrbo.com/) rental website which is also my final project for the [Seneca WEB322](https://web322.ca/) course, written with Javascript and SQL
 
-Available to view on ![Cyclic](https://combative-leotard-elk.cyclic.app/)
+Available to view on [Cyclic](https://combative-leotard-elk.cyclic.app/)
 
 ## Installation
 
