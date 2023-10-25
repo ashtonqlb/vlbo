@@ -16,6 +16,8 @@ const express_layouts = require("express-ejs-layouts");
 const app = express();
 
 const rentals_controller = require("./controllers/rentals_controller.js");
+const sign_up_controller = require("./controllers/sign_up_controller.js");
+const log_in_controller = require("./controllers/log_in_controller.js");
 
 app.use(express_layouts);
 
@@ -39,7 +41,7 @@ app.get("/login", function routeHandler(req, res) {
 
 app.get("/welcome", function routeHandler(req, res) {
     res.render("welcome");
-  });
+});
 
 // *** DO NOT MODIFY THE LINES BELOW ***
 
