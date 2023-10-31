@@ -12,6 +12,8 @@
 const path = require("path");
 const express = require("express");
 const express_layouts = require("express-ejs-layouts");
+const dotenv = require("dotenv").config();
+const mailtrap_client = require("mailtrap");
 
 const app = express();
 
@@ -20,6 +22,8 @@ const signup_validation = require("./signup_validation.js");
 const { validate_login } = require('./login_validation');
 
 app.use(express_layouts);
+
+const client = new mailtrap_client({ endpoint: process.env.ENDPOINT, token: process.env.TOKEN });
 
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
