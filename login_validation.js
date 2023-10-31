@@ -6,3 +6,8 @@ function validate_email(email) {
     const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return email_regex.test(email);
 };
+
+module.exports = {
+    validate_email, 
+    validate_login
+};
