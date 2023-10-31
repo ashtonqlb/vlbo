@@ -19,6 +19,10 @@
         <input type="password" id="password" class="input input-bordered input-secondary w-full">
       </div>
 
+      <% if (typeof error !== 'undefined') { %>
+        <p class = "font-bold text-red-500"><%= error %></p>
+      <% } %>
+
       <div class="form-control mt-4">
         <button class="btn btn-primary w-full">Log in</button>
       </div>

@@ -8,6 +8,5 @@ function validate_email(email) {
 };
 
 module.exports = {
-    validate_email, 
     validate_login
 };

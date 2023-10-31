@@ -16,6 +16,8 @@ const express_layouts = require("express-ejs-layouts");
 const app = express();
 
 const rentals_controller = require("./controllers/rentals_controller.js");
+const signup_validation = require("./signup_validation.js");
+const { validate_login } = require('./login_validation');
 
 app.use(express_layouts);
 
@@ -33,14 +35,22 @@ app.get("/signup", function routeHandler(req, res) {
   res.render("sign-up");
 });
 
-app.get("/login", function routeHandler(req, res) {
-  res.render("log-in");
+app.post('/login', (req, res) => {
+  if (req.body.email && req.body.password) {
+      if (!validate_login(req, res)) {
+          res.render('log-in', { error: 'Invalid email or password' });
+      } else {
+          res.redirect('/');
+      }
+  } else {
+      res.render('log-in');
+  }
 });
 
 app.post('/welcome', (req, res) => {
-  const { name, email, password } = req.body;
-  create_new_user(name, email, password);
-  res.redirect('/'); // redirect to home page or wherever you want
+  const {name, email, password} = req.body
+  signup_validation.create_new_user(name, email, password);
+  res.redirect('/');
 });
 
 // *** DO NOT MODIFY THE LINES BELOW ***
