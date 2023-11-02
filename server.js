@@ -13,13 +13,13 @@ const path = require("path");
 const express = require("express");
 const express_layouts = require("express-ejs-layouts");
 const dotenv = require("dotenv").config();
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
-try {
-    mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
-} catch(e) {
-    console.error("Could not connect to MongoDB. Check your .env file.");
-}
+// try {
+//     mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
+// } catch(e) {
+//     console.error("Could not connect to MongoDB. Check your .env file.");
+// }
 
 const app = express();
 const rentals_controller = require("./controllers/rentals_controller.js");
