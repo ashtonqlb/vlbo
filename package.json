@@ -22,7 +22,10 @@
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-ejs-layouts": "^2.5.1",
-    "mailtrap": "^3.2.0"
+    "mongodb": "^6.2.0",
+    "mongoose": "^8.0.0",
+    "sequelize": "^6.33.0",
+    "sqlite3": "^5.1.6"
   },
   "devDependencies": {
     "daisyui": "^3.9.3",

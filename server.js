@@ -13,17 +13,21 @@ const path = require("path");
 const express = require("express");
 const express_layouts = require("express-ejs-layouts");
 const dotenv = require("dotenv").config();
-const mailtrap_client = require("mailtrap");
+const mongoose = require('mongoose');
+
+try {
+    mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
+} catch(e) {
+    console.error("Could not connect to MongoDB. Check your .env file.");
+}
 
 const app = express();
-
 const rentals_controller = require("./controllers/rentals_controller.js");
 const signup_validation = require("./signup_validation.js");
 const { validate_login } = require('./login_validation');
 
 app.use(express_layouts);
-
-const client = new mailtrap_client({ endpoint: process.env.ENDPOINT, token: process.env.TOKEN });
+app.use(express.urlencoded({ extended: false }));
 
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
@@ -39,6 +43,12 @@ app.get("/signup", function routeHandler(req, res) {
   res.render("sign-up");
 });
 
+app.get("/login", function routeHandler(req, res) {});
+
+app.post("/signup", function routeHandler(req, res) {
+    signup_validation.create_new_user(req, res);
+});
+
 app.post('/login', (req, res) => {
   if (req.body.email && req.body.password) {
       if (!validate_login(req, res)) {
@@ -52,8 +62,7 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/welcome', (req, res) => {
-  const {name, email, password} = req.body
-  signup_validation.create_new_user(name, email, password);
+  res.render('welcome', { name: req.body.name });
   res.redirect('/');
 });
 

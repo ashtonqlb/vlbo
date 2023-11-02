@@ -1,4 +1,5 @@
 node_modules
 /bun.lockb
 assets/styles/vlbo_stylesheet.css
-/process.env
+/.env
+mongodb-access.pem
