@@ -43,22 +43,21 @@ app.get("/signup", function routeHandler(req, res) {
   res.render("sign-up");
 });
 
-app.get("/login", function routeHandler(req, res) {});
+app.get("/login", function routeHandler(req, res) {
+    res.render("log-in");
+});
 
 app.post("/signup", function routeHandler(req, res) {
     signup_validation.create_new_user(req, res);
 });
 
 app.post('/login', (req, res) => {
-  if (req.body.email && req.body.password) {
-      if (!validate_login(req, res)) {
-          res.render('log-in', { error: 'Invalid email or password' });
-      } else {
-          res.redirect('/');
-      }
-  } else {
-      res.render('log-in');
-  }
+    if (validate_login(req, res)) {
+        res.redirect('/');
+    }
+    else {
+        res.redirect('/login', { error: 'Invalid username or password.'});
+    }
 });
 
 app.post('/welcome', (req, res) => {
