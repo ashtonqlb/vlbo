@@ -24,7 +24,7 @@ try {
 const app = express();
 const rentals_controller = require("./controllers/rentals_controller.js");
 const signup_validation = require("./signup_validation.js");
-const { validate_login } = require('./login_validation');
+const login_validation = require("./login_validation.js");
 
 app.use(express_layouts);
 app.use(express.urlencoded({ extended: false }));
@@ -52,12 +52,7 @@ app.post("/signup", function routeHandler(req, res) {
 });
 
 app.post('/login', (req, res) => {
-    if (validate_login(req, res)) {
-        res.redirect('/');
-    }
-    else {
-        res.redirect('/login', { error: 'Invalid username or password.'});
-    }
+    login_validation.validate_login(req, res);
 });
 
 app.post('/welcome', (req, res) => {

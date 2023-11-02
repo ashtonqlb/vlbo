@@ -1,5 +1,12 @@
 function validate_login (req, res) {
-    return validate_email(req.body.email) && req.body.password !== null;
+    if (req.body.email && req.body.password) {
+        if (validate_email(req.body.email)) {
+            res.render("welcome", { name: req.body.name });
+        }
+    }
+    else {
+        res.render("log-in", { error: "Invalid username or password." });
+    }
 }
 
 function validate_email(email) {

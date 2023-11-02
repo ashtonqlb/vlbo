@@ -6,17 +6,18 @@
       <h1 class="text-3xl font-bold my-8 text-center mb-4">Welcome back</h1>
 
       <div class="form-control">
+        <form action="/login" method="POST" type="submit">
         <label class="label">
           <span class="label-text">Email</span>
         </label>
-        <input type="text" id="email" class="input input-bordered input-primary w-full">
+        <input type="text" id="email" name="email" class="input input-bordered input-primary w-full">
       </div>
 
       <div class="form-control mt-4">
         <label class="label">
           <span class="label-text">Password</span>
         </label>
-        <input type="password" id="password" class="input input-bordered input-secondary w-full">
+        <input type="password" id="password" name="password" class="input input-bordered input-secondary w-full">
       </div>
 
       <% if (typeof error !== 'undefined') { %>
@@ -24,7 +25,7 @@
       <% } %>
 
       <div class="form-control mt-4">
-        <button class="btn btn-primary w-full">Log in</button>
+        <button class="btn btn-primary w-full" type="submit">Log in</button>
       </div>
     </div>
   </div>
