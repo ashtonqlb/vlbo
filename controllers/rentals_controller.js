@@ -1,6 +1,6 @@
 // rentalsController.js
 
-const db = require("../models/rentals-db.js");
+const db = require("../models/rentals_db.js");
 
 function get_featured_rentals(req, res) {
   res.render("home", { featured_rentals: db.get_featured_rentals() });

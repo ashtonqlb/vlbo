@@ -22,9 +22,9 @@ const dotenv = require("dotenv").config();
 // }
 
 const app = express();
+
+const general_controller = require("./controllers/general_controller.js");
 const rentals_controller = require("./controllers/rentals_controller.js");
-const signup_validation = require("./signup_validation.js");
-const login_validation = require("./login_validation.js");
 
 app.use(express_layouts);
 app.use(express.urlencoded({ extended: false }));
@@ -36,29 +36,13 @@ app.set("layout", __dirname + "/views/layout/main.ejs");
 app.use(express.static(path.join(__dirname, "assets")));
 
 app.get("/", rentals_controller.get_featured_rentals);
-
 app.get("/rentals", rentals_controller.get_rentals_by_city_and_province);
+app.get("/signup", general_controller.sign_up);
+app.get("/login", general_controller.log_in);
 
-app.get("/signup", function routeHandler(req, res) {
-  res.render("sign-up");
-});
-
-app.get("/login", function routeHandler(req, res) {
-    res.render("log-in");
-});
-
-app.post("/signup", function routeHandler(req, res) {
-    signup_validation.create_new_user(req, res);
-});
-
-app.post('/login', (req, res) => {
-    login_validation.validate_login(req, res);
-});
-
-app.post('/welcome', (req, res) => {
-  res.render('welcome', { name: req.body.name });
-  res.redirect('/');
-});
+app.post("/signup", general_controller.test_new_user); // Call new user validation logic
+app.post('/login', general_controller.test_login);    // Call login validation logic
+app.post('/welcome', general_controller.welcome);
 
 // *** DO NOT MODIFY THE LINES BELOW ***
 
