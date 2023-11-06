@@ -3,3 +3,4 @@ node_modules
 assets/styles/vlbo_stylesheet.css
 /.env
 mongodb-access.pem
+vlbo with env.zip

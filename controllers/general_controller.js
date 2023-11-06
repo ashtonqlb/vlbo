@@ -23,7 +23,7 @@ function create_new_user (req, res) {
     if (errors.length > 0) {
         res.render("sign-up", { errors: errors });
     } else {
-        res.render("welcome", { name: req.body.name });
+        welcome(req, res);
     }
 }
 
@@ -79,6 +79,7 @@ function welcome(req, res) {
     })
     .then(msg => console.log(msg)) // logs response data
     .catch(err => console.log(err)); // logs any error
+
     res.render("welcome", { name: req.body.name });
     res.redirect("/");
 }
