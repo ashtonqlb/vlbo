@@ -2,7 +2,7 @@
 /node_modules
 
 /web322aql-cert.pem
-/package-lock.json
 /bun.lockb
 /.env
 assets/styles/gen.css
+/package-lock.json
