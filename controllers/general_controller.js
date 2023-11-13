@@ -21,7 +21,7 @@ function validate_new_user (req, res) {
     }
 
     if (errors.length > 0) {
-        res.render("sign-up", { errors: errors , user: user});
+        res.render("sign-up", { errors: errors , user: req.session.user});
     } else {
         user_model.create({ name: req.body.name, email: req.body.email, password: req.body.password });
         login_redirect(req, res);
@@ -36,7 +36,7 @@ function validate_login (req, res) {
                     .then(result => {
                         if (result) {
                             req.session.user = user
-                            if (req.body.clerk_mode) {
+                            if (req.body.clerk_mode == "checked") {
                                 req.session.clerk_mode = true;
                             } else {
                                 req.session.clerk_mode = false;
@@ -110,7 +110,7 @@ function login_redirect(req, res) {
         })
         .then(err => console.log(err)); // logs any error
 
-        res.render("welcome", { name: req.session.name, user: req.session.user });
+        // res.render("welcome", { name: req.session.name, user: req.session.user });
         res.redirect("/");
     }
 }
