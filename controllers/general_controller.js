@@ -5,7 +5,6 @@ const mailgun = new Mailgun(form_data);
 const mg = mailgun.client({ username: "api", key: process.env.MAILGUN_API_KEY });
 const bcrypt = require("bcryptjs");
 
-
 function validate_new_user (req, res) {
     let errors = [];
 
@@ -22,10 +21,10 @@ function validate_new_user (req, res) {
     }
 
     if (errors.length > 0) {
-        res.render("sign-up", { errors: errors });
+        res.render("sign-up", { errors: errors , user: user});
     } else {
         user_model.create({ name: req.body.name, email: req.body.email, password: req.body.password });
-        welcome(req, res);
+        login_redirect(req, res);
     }
 }
 
@@ -36,27 +35,26 @@ function validate_login (req, res) {
                 bcrypt.compare(req.body.password, user.password)
                     .then(result => {
                         if (result) {
-                            req.session.user = user;
-
-                            if (user.clerk_mode === 'on') {
+                            req.session.user = user
+                            if (req.body.clerk_mode) {
                                 req.session.clerk_mode = true;
                             } else {
                                 req.session.clerk_mode = false;
                             }
-
-                            welcome(req, res);
+                            
+                            login_redirect(req, res);
                         } else {
-                            res.render("log-in", { error: "Invalid username or password." });
+                            res.render("log-in", { error: "Invalid username or password." , user: user});
                         }
                     });
             } else {
-                res.render("log-in", { error: "Invalid username or password." });
+                res.render("log-in", { error: "Invalid username or password.",  user: user});
             }
         })
-        .catch(err => {
-            console.log(err);
-            res.render("log-in", { error: "An error occurred." });
-        });
+    .catch(err => {
+        console.log(err);
+        res.render("log-in", { error: "An error occurred." , user: user});
+    });
 }
 
 function validate_password(password) {
@@ -76,11 +74,11 @@ function validate_name(name) {
 // Render functions, moved out of the server.
 
 function sign_up(req, res) {
-    res.render("sign-up");
+    res.render("sign-up", { user: req.session.user });
 }
 
 function log_in(req, res) {
-    res.render("log-in");
+    res.render("log-in", { user: req.session.user });
 }
 
 function create_new_user(req, res) {
@@ -96,24 +94,32 @@ function log_out(req, res) {
     }
 }
 
-function welcome(req, res) {
-    mg.messages.create(process.env.MAILGUN_DOMAIN, {
-        from: ("SATELLITEHARASSMENT <mailgun@" + process.env.MAILGUN_DOMAIN + ">"),
-        to: process.env.MAILGUN_RECIPIENT,
-        subject: "Welcome to Vlbo!",
-        text: `Ashton Lunken. Vlbo. ${req.body.name}. Repeat. Ashton Lunken. Vlbo. ${req.body.name}. Cells. Interlinked. Cells. Into. Links.`
-    })
-    .then(err => console.log(err)); // logs any error
+function login_redirect(req, res) {
+    if (req.session.user && req.session.clerk_mode) {
+        res.redirect("/rentals/list");
+    } 
+    else if (req.session.user) {
+        res.redirect("/cart");
+    } 
+    else {
+        mg.messages.create(process.env.MAILGUN_DOMAIN, {
+            from: ("SATELLITEHARASSMENT <mailgun@" + process.env.MAILGUN_DOMAIN + ">"),
+            to: process.env.MAILGUN_RECIPIENT,
+            subject: "Welcome to Vlbo!",
+            text: `Ashton Lunken. Vlbo. ${req.session.name}. Repeat. Ashton Lunken. Vlbo. ${req.session.name}. Cells. Interlinked. Cells. Into. Links.`
+        })
+        .then(err => console.log(err)); // logs any error
 
-    res.render("welcome", { name: req.body.name });
-    res.redirect("/");
+        res.render("welcome", { name: req.session.name, user: req.session.user });
+        res.redirect("/");
+    }
 }
 
 module.exports = {
     sign_up,
     log_in,
     log_out,
-    welcome,
+    login_redirect,
     validate_login,
     create_new_user
 };

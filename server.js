@@ -42,10 +42,11 @@ app.get("/cart", rentals_controller.cart);
 
 app.get("/signup", general_controller.sign_up);
 app.get("/login", general_controller.log_in);
+app.get("/logout", general_controller.log_out);
 
 app.post("/signup", general_controller.create_new_user);
 app.post('/login', general_controller.validate_login);
-app.post('/welcome', general_controller.welcome);
+app.post('/welcome', general_controller.login_redirect);
 
 // *** DO NOT MODIFY THE LINES BELOW ***
 
