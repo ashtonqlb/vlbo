@@ -5,7 +5,6 @@ const mailgun = new Mailgun(form_data);
 const mg = mailgun.client({ username: "api", key: process.env.MAILGUN_API_KEY });
 const bcrypt = require("bcryptjs");
 
-// Validation logic, moved from loose JS files.
 
 function validate_new_user (req, res) {
     let errors = [];
@@ -37,7 +36,15 @@ function validate_login (req, res) {
                 bcrypt.compare(req.body.password, user.password)
                     .then(result => {
                         if (result) {
-                            res.render("welcome", { name: user.name });
+                            req.session.user = user;
+
+                            if (user.clerk_mode === 'on') {
+                                req.session.clerk_mode = true;
+                            } else {
+                                req.session.clerk_mode = false;
+                            }
+
+                            welcome(req, res);
                         } else {
                             res.render("log-in", { error: "Invalid username or password." });
                         }
@@ -80,6 +87,15 @@ function create_new_user(req, res) {
     validate_new_user(req, res);
 }
 
+function log_out(req, res) {
+    req.session.destroy();
+    if (err) {
+        console.log(err)
+    } else {
+        res.redirect("/");
+    }
+}
+
 function welcome(req, res) {
     mg.messages.create(process.env.MAILGUN_DOMAIN, {
         from: ("SATELLITEHARASSMENT <mailgun@" + process.env.MAILGUN_DOMAIN + ">"),
@@ -96,6 +112,7 @@ function welcome(req, res) {
 module.exports = {
     sign_up,
     log_in,
+    log_out,
     welcome,
     validate_login,
     create_new_user

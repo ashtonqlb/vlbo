@@ -13,6 +13,7 @@ const path = require("path");
 const express = require("express");
 const express_layouts = require("express-ejs-layouts");
 const dotenv = require("dotenv").config();
+const session = require("express-session");
 
 const app = express();
 
@@ -21,6 +22,12 @@ const rentals_controller = require("./controllers/rentals_controller.js");
 
 app.use(express_layouts);
 app.use(express.urlencoded({ extended: false }));
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}));
 
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
@@ -30,6 +37,9 @@ app.use(express.static(path.join(__dirname, "assets")));
 
 app.get("/", rentals_controller.get_featured_rentals);
 app.get("/rentals", rentals_controller.get_rentals_by_city_and_province);
+app.get("/rentals/list", rentals_controller.rentals_editor);
+app.get("/cart", rentals_controller.cart);
+
 app.get("/signup", general_controller.sign_up);
 app.get("/login", general_controller.log_in);
 
