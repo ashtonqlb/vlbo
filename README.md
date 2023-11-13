@@ -11,15 +11,18 @@ Available to view on [Cyclic](https://combative-leotard-elk.cyclic.app/)
 
 ## Installation
 
-1. Clone this repository
-   
-    ``` bash
-   git clone https://github.com/ashtonqlb/vlbo.git
-    ```
-2.  Run 
-    ``` bash
+
+```bash
+    # Clone the repository #
+    git clone https://github.com/ashtonqlb/vlbo.git
+    # Install dependencies #
     bun install
-    ```
+    # Run the TailwindCSS generation script before launching the server #
+    bun css:linux
+
+    # The server's default port is 8080 #
+    bun start
+```
 
 # Academic Mumbo Jumbo
 I declare that this assignment is my own work in accordance with the Seneca Academic Policy.
