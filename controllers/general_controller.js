@@ -3,7 +3,7 @@ const Mailgun = require("mailgun.js");
 const { user_model } = require("../models/user_model");
 const mailgun = new Mailgun(form_data);
 const mg = mailgun.client({ username: "api", key: process.env.MAILGUN_API_KEY });
-// const bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 
 // Validation logic, moved from loose JS files.
 
