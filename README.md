@@ -1,7 +1,8 @@
 # Vlbo | WEB322 Project (Fall 2023)
-![Bun](https://img.shields.io/badge/Bun-%23000000.svg?style=for-the-badge&logo=bun&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![Bun](https://img.shields.io/badge/Bun-%23000000.svg?style=for-the-badge&logo=bun&logoColor=white)
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
 
 [![Visits Badge](https://badges.pufler.dev/visits/ashtonqlb/vlbo?label=visits)](https://badges.pufler.dev)
 
@@ -11,15 +12,18 @@ Available to view on [Cyclic](https://combative-leotard-elk.cyclic.app/)
 
 ## Installation
 
-1. Clone this repository
-   
-    ``` bash
-   git clone https://github.com/ashtonqlb/vlbo.git
-    ```
-2.  Run 
-    ``` bash
+
+```bash
+    # Clone the repository #
+    git clone https://github.com/ashtonqlb/vlbo.git
+    # Install dependencies #
     bun install
-    ```
+    # Run the TailwindCSS generation script before launching the server #
+    bun css:linux
+
+    # The server's default port is 8080 #
+    bun start
+```
 
 # Academic Mumbo Jumbo
 I declare that this assignment is my own work in accordance with the Seneca Academic Policy.
