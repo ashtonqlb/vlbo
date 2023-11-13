@@ -13,13 +13,6 @@ const path = require("path");
 const express = require("express");
 const express_layouts = require("express-ejs-layouts");
 const dotenv = require("dotenv").config();
-// const mongoose = require('mongoose');
-
-// try {
-//     mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
-// } catch(e) {
-//     console.error("Could not connect to MongoDB. Check your .env file.");
-// }
 
 const app = express();
 
@@ -40,8 +33,8 @@ app.get("/rentals", rentals_controller.get_rentals_by_city_and_province);
 app.get("/signup", general_controller.sign_up);
 app.get("/login", general_controller.log_in);
 
-app.post("/signup", general_controller.test_new_user); // Call new user validation logic
-app.post('/login', general_controller.test_login);    // Call login validation logic
+app.post("/signup", general_controller.create_new_user);
+app.post('/login', general_controller.validate_login);
 app.post('/welcome', general_controller.welcome);
 
 // *** DO NOT MODIFY THE LINES BELOW ***

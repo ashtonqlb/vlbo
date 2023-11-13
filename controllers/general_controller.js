@@ -1,11 +1,13 @@
 const form_data = require("form-data");
 const Mailgun = require("mailgun.js");
+const { user_model } = require("../models/user_model");
 const mailgun = new Mailgun(form_data);
 const mg = mailgun.client({ username: "api", key: process.env.MAILGUN_API_KEY });
+// const bcrypt = require("bcryptjs");
 
 // Validation logic, moved from loose JS files.
 
-function create_new_user (req, res) {
+function validate_new_user (req, res) {
     let errors = [];
 
     if (!validate_name(req.body.name)) {
@@ -23,19 +25,31 @@ function create_new_user (req, res) {
     if (errors.length > 0) {
         res.render("sign-up", { errors: errors });
     } else {
+        user_model.create({ name: req.body.name, email: req.body.email, password: req.body.password });
         welcome(req, res);
     }
 }
 
 function validate_login (req, res) {
-    if (req.body.email && req.body.password) {
-        if (validate_email(req.body.email)) {
-            res.render("welcome", { name: req.body.name });
-        }
-    }
-    else {
-        res.render("log-in", { error: "Invalid username or password." });
-    }
+    user_model.findOne({ email: req.body.email })
+        .then(user => {
+            if (user) {
+                bcrypt.compare(req.body.password, user.password)
+                    .then(result => {
+                        if (result) {
+                            res.render("welcome", { name: user.name });
+                        } else {
+                            res.render("log-in", { error: "Invalid username or password." });
+                        }
+                    });
+            } else {
+                res.render("log-in", { error: "Invalid username or password." });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.render("log-in", { error: "An error occurred." });
+        });
 }
 
 function validate_password(password) {
@@ -62,12 +76,8 @@ function log_in(req, res) {
     res.render("log-in");
 }
 
-function test_new_user(req, res) {
-    create_new_user(req, res);
-}
-
-function test_login(req, res) {
-    validate_login(req, res);
+function create_new_user(req, res) {
+    validate_new_user(req, res);
 }
 
 function welcome(req, res) {
@@ -77,8 +87,7 @@ function welcome(req, res) {
         subject: "Welcome to Vlbo!",
         text: `Ashton Lunken. Vlbo. ${req.body.name}. Repeat. Ashton Lunken. Vlbo. ${req.body.name}. Cells. Interlinked. Cells. Into. Links.`
     })
-    .then(msg => console.log(msg)) // logs response data
-    .catch(err => console.log(err)); // logs any error
+    .then(err => console.log(err)); // logs any error
 
     res.render("welcome", { name: req.body.name });
     res.redirect("/");
@@ -88,6 +97,6 @@ module.exports = {
     sign_up,
     log_in,
     welcome,
-    test_login,
-    test_new_user
+    validate_login,
+    create_new_user
 };

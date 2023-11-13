@@ -20,6 +20,13 @@
         <input type="password" id="password" name="password" class="input input-bordered input-secondary w-full">
       </div>
 
+      <div class="form-control">
+        <label class="label cursor-pointer">
+          <span class="label-text">Clerk Mode</span> 
+          <input type="checkbox" class="toggle toggle-lg toggle-primary" checked />
+        </label>
+      </div>
+
       <% if (typeof error !== 'undefined') { %>
         <p class = "font-bold text-red-500"><%= error %></p>
       <% } %>
