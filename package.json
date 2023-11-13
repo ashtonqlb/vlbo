@@ -4,6 +4,8 @@
   "description": "WEB322 project",
   "main": "server.js",
   "scripts": {
+    "css:linux": "bash ./gen_css.sh",
+    "css:windows": ".\\gen_css.bat",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
