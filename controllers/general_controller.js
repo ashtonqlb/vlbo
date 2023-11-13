@@ -36,13 +36,18 @@ function validate_login (req, res) {
                     .then(result => {
                         if (result) {
                             req.session.user = user
+
                             if (req.body.clerk_mode == "checked") {
                                 req.session.clerk_mode = true;
+                                res.redirect("/rentals/list", { user: req.session.user });
                             } else {
                                 req.session.clerk_mode = false;
+                                res.redirect("/cart");
                             }
-                            
+
                             login_redirect(req, res);
+                            res.redirect("/");
+                            
                         } else {
                             res.render("log-in", { error: "Invalid username or password." , user: user});
                         }
@@ -95,24 +100,15 @@ function log_out(req, res) {
 }
 
 function login_redirect(req, res) {
-    if (req.session.user && req.session.clerk_mode) {
-        res.redirect("/rentals/list");
-    } 
-    else if (req.session.user) {
-        res.redirect("/cart");
-    } 
-    else {
-        mg.messages.create(process.env.MAILGUN_DOMAIN, {
-            from: ("SATELLITEHARASSMENT <mailgun@" + process.env.MAILGUN_DOMAIN + ">"),
-            to: process.env.MAILGUN_RECIPIENT,
-            subject: "Welcome to Vlbo!",
-            text: `Ashton Lunken. Vlbo. ${req.session.name}. Repeat. Ashton Lunken. Vlbo. ${req.session.name}. Cells. Interlinked. Cells. Into. Links.`
-        })
-        .then(err => console.log(err)); // logs any error
+    mg.messages.create(process.env.MAILGUN_DOMAIN, {
+        from: ("SATELLITEHARASSMENT <mailgun@" + process.env.MAILGUN_DOMAIN + ">"),
+        to: process.env.MAILGUN_RECIPIENT,
+        subject: "Welcome to Vlbo!",
+        text: `Ashton Lunken. Vlbo. ${req.session.name}. Repeat. Ashton Lunken. Vlbo. ${req.session.name}. Cells. Interlinked. Cells. Into. Links.`
+    })
+    .then(err => console.log(err)); // logs any error
 
-        // res.render("welcome", { name: req.session.name, user: req.session.user });
-        res.redirect("/");
-    }
+    res.render("welcome", { name: req.session.name, user: req.session.user });
 }
 
 module.exports = {
