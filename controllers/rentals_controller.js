@@ -12,15 +12,15 @@ function get_rentals_by_city_and_province(req, res) {
 
 function rentals_editor(req, res) { //list
   if (req.session.user && req.session.user.clerk_mode) {
-    res.render("rentals-editor", { all_rentals: db.get_all_rentals()});
+    res.render("editor");
   } else {
     res.redirect("/login");
   }
 }
 
 function cart(req, res) {
-  if (req.session.user) {
-    res.render("cart", { user: req.session.user});
+  if (req.session.user && !req.session.user.clerk_mode) {
+    res.render("cart");
   } else {
     res.redirect("/login");
   }

@@ -52,7 +52,7 @@ function validate_login (req, res) {
                     })
                     .catch(err => {
                         console.log(err);
-                        res.render("log-in", { error: "An error occurred during password comparison."});
+                        res.render("log-in", { error: "An error occurred."});
                     });
             } else {
                 res.render("log-in", { error: "Invalid username or password."});
