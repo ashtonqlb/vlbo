@@ -12,13 +12,15 @@
         <li><a href="/signup"><i class="fa-solid fa-users text-primary"></i> Sign Up</a></li>
         <li><a href="/login"><i class="fa-solid fa-circle-user text-primary"></i>Log In</a></li>
       <% } %>
-      <% if (user && user.clerk_mode === "false") { %>
-        <li><a href="/cart"><i class="fa-solid fa-shopping-cart text-primary"></i> <%user.name%> </a></li>
-        <% } %>
-      <% if (user && user.clerk_mode === "true") { %>
-        <li><a href="/rentals/list"><i class="fa-solid fa-edit text-primary"></i> <%user.name%> </a></li>
+      <% if (typeof user === "object") { %>
+          <% if (typeof user.clerk_mode === "true") { %>
+            <li><a href="/rentals/list"><i class="fa-solid fa-edit text-primary"></i> <%user.name%> </a></li>
+          <% } else { %>
+            <li><a href="/cart"><i class="fa-solid fa-shopping-cart text-primary"></i> <%user.name%> </a></li>
+          <% } %>
       <% } %>
-      <% if (user) { %>
+
+      <% if (locals.user) { %>
         <li><a href="/logout"><i class="fa-solid fa-right-from-bracket text-primary"></i>Log Out</a></li>
       <% } %>
     </ul>

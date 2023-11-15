@@ -21,44 +21,46 @@ function validate_new_user (req, res) {
     }
 
     if (errors.length > 0) {
-        res.render("sign-up", { errors: errors , user: req.session.user});
+        res.render("sign-up", { errors: errors });
     } else {
         user_model.create({ name: req.body.name, email: req.body.email, password: req.body.password });
-        login_redirect(req, res);
+        welcome(req, res);
     }
 }
 
 function validate_login (req, res) {
-    user_model.findOne({ email: req.body.email })
+    user_model.findOne({ email: req.body.email }) 
         .then(user => {
             if (user) {
+                const user_object = user.toObject();
+
                 bcrypt.compare(req.body.password, user.password)
                     .then(result => {
                         if (result) {
-                            req.session.user = user
+                            req.session.user = user_object;
 
                             if (req.body.clerk_mode == "checked") {
                                 req.session.clerk_mode = true;
-                                res.redirect("/rentals/list", { user: req.session.user });
+                                res.redirect("/rentals/list");
                             } else {
                                 req.session.clerk_mode = false;
                                 res.redirect("/cart");
                             }
-
-                            login_redirect(req, res);
-                            res.redirect("/");
-                            
                         } else {
-                            res.render("log-in", { error: "Invalid username or password." , user: user});
+                            res.render("log-in", { error: "Invalid username or password." });
                         }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        res.render("log-in", { error: "An error occurred during password comparison."});
                     });
             } else {
-                res.render("log-in", { error: "Invalid username or password.",  user: user});
+                res.render("log-in", { error: "Invalid username or password."});
             }
         })
     .catch(err => {
         console.log(err);
-        res.render("log-in", { error: "An error occurred." , user: user});
+        res.render("log-in", { error: "An error occurred." , user: null });
     });
 }
 
@@ -99,23 +101,23 @@ function log_out(req, res) {
     }
 }
 
-function login_redirect(req, res) {
-    mg.messages.create(process.env.MAILGUN_DOMAIN, {
-        from: ("SATELLITEHARASSMENT <mailgun@" + process.env.MAILGUN_DOMAIN + ">"),
-        to: process.env.MAILGUN_RECIPIENT,
-        subject: "Welcome to Vlbo!",
-        text: `Ashton Lunken. Vlbo. ${req.session.name}. Repeat. Ashton Lunken. Vlbo. ${req.session.name}. Cells. Interlinked. Cells. Into. Links.`
-    })
-    .then(err => console.log(err)); // logs any error
+function welcome(req, res) {
+    // mg.messages.create(process.env.MAILGUN_DOMAIN, {
+    //     from: ("SATELLITEHARASSMENT <mailgun@" + process.env.MAILGUN_DOMAIN + ">"),
+    //     to: "${req.body.email}",
+    //     subject: "Welcome to Vlbo!",
+    //     text: `Ashton Lunken. Vlbo. ${req.session.name}. Repeat. Ashton Lunken. Vlbo. ${req.session.name}. Cells. Interlinked. Cells. Into. Links.`
+    // })
+    // .then(err => console.log(err)); // logs any error
 
-    res.render("welcome", { name: req.session.name, user: req.session.user });
+    res.render("welcome", { name: req.session.name });
 }
 
 module.exports = {
     sign_up,
     log_in,
     log_out,
-    login_redirect,
+    welcome,
     validate_login,
     create_new_user
 };

@@ -46,16 +46,12 @@ app.get("/logout", general_controller.log_out);
 
 app.post("/signup", general_controller.create_new_user);
 app.post('/login', general_controller.validate_login);
-app.post('/welcome', general_controller.login_redirect);
+app.post('/welcome', general_controller.welcome);
 
-// *** DO NOT MODIFY THE LINES BELOW ***
 
-// This use() will not allow requests to go beyond it
-// so we place it at the end of the file, after the other routes.
-// This function will catch all other requests that don't match
-// any other route handlers declared before it.
-// This means we can use it as a sort of 'catch all' when no route match is found.
-// We use this function to handle 404 requests to pages that are not found.
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+});
 
 app.use((req, res) => {
     res.status(404).send("Page Not Found");
