@@ -12,7 +12,7 @@ function get_rentals_by_city_and_province(req, res) {
 
 function rentals_editor(req, res) { //list
   if (req.session.user && req.session.user.clerk_mode) {
-    res.render("editor");
+    res.render("editor", {name: req.session.user.name});
   } else {
     res.redirect("/login");
   }
@@ -20,7 +20,7 @@ function rentals_editor(req, res) { //list
 
 function cart(req, res) {
   if (req.session.user && !req.session.user.clerk_mode) {
-    res.render("cart");
+    res.render("cart", {name: req.session.user.name});
   } else {
     res.redirect("/login");
   }

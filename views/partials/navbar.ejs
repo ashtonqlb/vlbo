@@ -13,10 +13,10 @@
         <li><a href="/login"><i class="fa-solid fa-circle-user text-primary"></i>Log In</a></li>
       <% } %>
       <% if (typeof user === "object") { %>
-          <% if (typeof user.clerk_mode === "true") { %>
-            <li><a href="/rentals/list"><i class="fa-solid fa-edit text-primary"></i> <%user.name%> </a></li>
+          <% if (user.clerk_mode === true) { %>
+            <li><a href="/rentals/list"><i class="fa-solid fa-edit text-primary"></i> <%= user.name %> </a></li>
           <% } else { %>
-            <li><a href="/cart"><i class="fa-solid fa-shopping-cart text-primary"></i> <%user.name%> </a></li>
+            <li><a href="/cart"><i class="fa-solid fa-shopping-cart text-primary"></i> <%= user.name %> </a></li>
           <% } %>
       <% } %>
 

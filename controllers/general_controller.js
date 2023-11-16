@@ -39,11 +39,11 @@ function validate_login (req, res) {
                         if (result) {
                             req.session.user = user_object;
 
-                            if (req.body.clerk_mode == "checked") {
-                                req.session.clerk_mode = true;
+                            if (req.body.clerk_mode == "on") {
+                                req.session.user.clerk_mode = true;
                                 res.redirect("/rentals/list");
                             } else {
-                                req.session.clerk_mode = false;
+                                req.session.user.clerk_mode = false;
                                 res.redirect("/cart");
                             }
                         } else {
@@ -93,12 +93,13 @@ function create_new_user(req, res) {
 }
 
 function log_out(req, res) {
-    req.session.destroy();
-    if (err) {
-        console.log(err)
-    } else {
-        res.redirect("/");
-    }
+    req.session.destroy((err) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.redirect("/");
+        }
+    });
 }
 
 function welcome(req, res) {

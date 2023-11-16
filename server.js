@@ -26,7 +26,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
+    // cookie: { secure: true }
 }));
 
 app.set("view engine", "ejs");
@@ -34,6 +34,11 @@ app.set("views", __dirname + "/views");
 app.set("layout", __dirname + "/views/layout/main.ejs");
 
 app.use(express.static(path.join(__dirname, "assets")));
+
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+});
 
 app.get("/", rentals_controller.get_featured_rentals);
 app.get("/rentals", rentals_controller.get_rentals_by_city_and_province);
@@ -48,10 +53,6 @@ app.post("/signup", general_controller.create_new_user);
 app.post('/login', general_controller.validate_login);
 app.post('/welcome', general_controller.welcome);
 
-
-app.use((req, res, next) => {
-    res.locals.user = req.session.user;
-});
 
 app.use((req, res) => {
     res.status(404).send("Page Not Found");
