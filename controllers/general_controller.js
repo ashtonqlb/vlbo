@@ -103,13 +103,13 @@ function log_out(req, res) {
 }
 
 function welcome(req, res) {
-    // mg.messages.create(process.env.MAILGUN_DOMAIN, {
-    //     from: ("SATELLITEHARASSMENT <mailgun@" + process.env.MAILGUN_DOMAIN + ">"),
-    //     to: "${req.body.email}",
-    //     subject: "Welcome to Vlbo!",
-    //     text: `Ashton Lunken. Vlbo. ${req.session.name}. Repeat. Ashton Lunken. Vlbo. ${req.session.name}. Cells. Interlinked. Cells. Into. Links.`
-    // })
-    // .then(err => console.log(err)); // logs any error
+    mg.messages.create(process.env.MAILGUN_DOMAIN, {
+        from: ("SATELLITEHARASSMENT <mailgun@" + process.env.MAILGUN_DOMAIN + ">"),
+        to: "${req.body.email}",
+        subject: "Welcome to Vlbo!",
+        text: `Ashton Lunken. Vlbo. ${req.session.name}. Repeat. Ashton Lunken. Vlbo. ${req.session.name}. Cells. Interlinked. Cells. Into. Links.`
+    })
+    .then(err => console.log(err));
 
     res.render("welcome", { name: req.session.name });
 }
