@@ -87,6 +87,17 @@ function load_default_set(req, res) {
                         .catch(err => {
                             res.send("Data load failed: " + err)
                         });
+                } else {
+                    rentals_model.deleteMany()
+                        .then(() => {
+                            return rentals_model.insertMany(default_data_set);
+                        })
+                        .then(() => {
+                            res.redirect('/rentals');
+                        })
+                        .catch(err => {
+                            res.send("Data load failed: " + err)
+                        });
                 }
             })
             .catch(err => {

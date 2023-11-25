@@ -1,12 +1,12 @@
 <%- contentFor('body') %>
-<center>
-    <div class="carousel flex flex-col sm:flex-row mx-auto justify-center" data-flickity='{ "wrapAround": true }'>
-        <div class="flex flex-wrap">
-            <% all_rentals.forEach(rental => { %>
-                <div class="carousel-cell">
-                    <%- include('./partials/rental', {rental}) %>
-                </div>
-            <% }) %>
-        </div>
-    </div>
-</center>
+<div class="carousel flex flex-col sm:flex-row mx-auto justify-center" data-flickity='{ "wrapAround": true }'>
+    <div class="flex flex-wrap">
+        <% all_rentals.forEach(rental => { %>
+            <div class="carousel-cell">
+                <%- include('./partials/rental', {rental}) %>
+            </div>
+        <% }) %>
+</div>
+    <% if (user && user.clerk_mode === true) { %>
+        <a href="/load-data/rentals"><button class="btn btn-secondary w-full">Load default set</button></a>
+    <% } %>

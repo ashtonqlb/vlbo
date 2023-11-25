@@ -52,7 +52,7 @@ function get_rentals_by_city_and_province() {
 }
 
 function get_rentals_by_headline() {
-    return rentals_model.find().orderBy("headline");
+    return rentals_model.find().sort({headline: 1});
 }
 
 const rentals_model = mongoose.model("rentals", property_schema);

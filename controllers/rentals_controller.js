@@ -49,9 +49,20 @@ function render_create_rental(req, res) {
     res.redirect("/login");
   }
 }
-function render_update_rental(req,res) { 
+
+function render_update_rental(req, res) { 
   if (req.session.user && req.session.user.clerk_mode) {
-    res.render("edit", {name: req.session.user.name});
+    db.get_rentals_by_headline()
+      .then(rentals => {
+        const rentalsObject = rentals.reduce((obj, rental) => {
+          obj[rental._id] = rental;
+          return obj;
+        }, {});
+        res.render("edit", {name: req.session.user.name, rental: rentalsObject});
+      })
+      .catch(err => {
+        res.status(500).send("Error retrieving rentals: " + err);
+      });
   } else {
     res.redirect("/login");
   }
@@ -59,25 +70,23 @@ function render_update_rental(req,res) {
 
 function render_delete_rental(req, res) { 
   if (req.session.user && req.session.user.clerk_mode) {
-    res.render("remove", {name: req.session.user.name});
+    db.rentals_model.find()
+      .then(rentals => {
+        res.render("remove", { rentals: rentals });
+      })
+      .catch(err => {
+        res.status(500).send("Error retrieving rentals: " + err);
+      });
   } else {
     res.redirect("/login");
   }
-}
+};
 
-function logic_create_rental(req, res) { //submit form data to mongoose database
+function logic_create_rental(req, res) {
   if (req.session.user && req.session.user.clerk_mode) {
-    const new_rental = new db.rentals_model({
-      headline: req.body.headline,
-      numSleeps: req.body.numSleeps,
-      numBedrooms: req.body.numBedrooms,
-      numBathrooms: req.body.numBathrooms,
-      pricePerNight: req.body.pricePerNight,
-      city: req.body.city,
-      province: req.body.province,
-      imageUrl: req.body.imageUrl,
-      featured: req.body.featured
-    });
+    req.body.featured = req.body.featured === 'on';
+
+    const new_rental = new db.rentals_model(req.body);
     new_rental.save();
     res.redirect("/rentals/list");
   } else {
@@ -111,7 +120,7 @@ function logic_update_rental(req, res) {
   } else {
     res.redirect("/login");
   }
-} //update form data to mongoose database
+}
 
 
 
