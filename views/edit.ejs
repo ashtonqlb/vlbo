@@ -1,0 +1,82 @@
+<%- contentFor('body') %>
+<a href="/rentals/list"><button class="btn btn-secondary w-full">Back</button></a>
+
+<div class="flex justify-center">
+    <div class="card w-full max-w-xs">
+      <div class="card-body">
+        <form action="/rentals/edit/<%= rental._id %>" method="POST">
+            <div class="form-control mt-4">
+                <label class="label">
+                  <span class="label-text">Headline</span>
+                </label>
+                <input type="text" name="headline" value="<%= rental.headline %>" class="input input-bordered">
+            </div>
+
+            <div class="form-control mt-4">
+                <label class="label">
+                  <span class="label-text">Headline</span>
+                </label>
+                <input type="text" id="headline" name="headline" value="<%= rental.headline %>" class="input input-bordered input-primary w-full">
+            </div>
+
+            <div class="form-control mt-4">
+                <label class="label">
+                  <span class="label-text"># Sleeps</span>
+                </label>
+                <input type="number" id="numSleeps" name="numSleeps" value=<%= rental.numSleeps %> class="input input-bordered input-primary w-full">
+            </div>
+
+            <div class="form-control mt-4">
+                <label class="label">
+                  <span class="label-text"># Bedrooms</span>
+                </label>
+                <input type="number" id="numBedrooms" name="numBedrooms" value=<%= rental.numBedrooms %> class="input input-bordered input-primary w-full">
+            </div>
+
+            <div class="form-control mt-4">
+                <label class="label">
+                  <span class="label-text"># Bathrooms</span>
+                </label>
+                <input type="number" id="numBathrooms" name="numBathrooms" value=<%= rental.numBathrooms %> class="input input-bordered input-primary w-full">
+            </div>
+
+            <div class="form-control mt-4">
+                <label class="label">
+                  <span class="label-text">Price per Night</span>
+                </label>
+                <input type="number" id="pricePerNight" name="pricePerNight" value=<%= rental.pricePerNight %> class="input input-bordered input-primary w-full">
+            </div>
+
+            <div class="form-control mt-4">
+                <label class="label">
+                  <span class="label-text">City</span>
+                </label>
+                <input type="text" id="city" name="city" value=<%= rental.city %> class="input input-bordered input-primary w-full">
+            </div>
+
+            <div class="form-control mt-4">
+                <label class="label">
+                  <span class="label-text">Province</span>
+                </label>
+                <input type="text" id="province" name="province" value=<%= rental.province %> class="input input-bordered input-primary w-full">
+            </div>
+
+            <div class="form-control mt-4">
+                <label class="label">
+                  <span class="label-text">Image</span>
+                </label>
+                <input type="url" id="imageUrl" name="imageUrl" value=<%= rental.imageUrl %> class="input input-bordered input-primary w-full">
+            </div>
+
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                  <span class="label-text">Featured</span> 
+                  <input type="checkbox" id="featured" name="featured" value=<%= rental.featured %> class="toggle toggle-lg toggle-primary" checked />
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+      </div>
+    </div>
+</div>

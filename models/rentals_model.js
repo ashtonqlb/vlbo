@@ -1,85 +1,65 @@
-rentals = [
-    {
-        headline: "Cozy Downtown Apartment",
-        numSleeps: 2,
-        numBedrooms: 1,
-        numBathrooms: 1,
-        pricePerNight: 100,
-        city: "Toronto",
-        province: "Ontario",
-        imageUrl: "/images/property1.webp",
-        featured: true,
+const mongoose = require("mongoose");
+
+mongoose.connect(process.env.MONGODB_CONNECTION_STRING)
+.then(() => console.log('Connected successfully to server'))
+.catch(err => console.error('Could not connect to MongoDB', err));;
+
+const property_schema = new mongoose.Schema({
+    headline: {
+        type: String,
+        require: true
     },
-    {
-        headline: "Spacious Family Home",
-        numSleeps: 6,
-        numBedrooms: 3,
-        numBathrooms: 2,
-        pricePerNight: 200,
-        city: "Toronto",
-        province: "Ontario",
-        imageUrl: "/images/property2.jpg",
-        featured: false,
+    numSleeps: {
+        type: Number,
+        require: true
     },
-    {
-        headline: "Luxury Penthouse Suite",
-        numSleeps: 4,
-        numBedrooms: 2,
-        numBathrooms: 2,
-        pricePerNight: 300,
-        city: "Toronto",
-        province: "Ontario",
-        imageUrl: "/images/property3.png",
-        featured: false,
+    numBedrooms: {
+        type: Number,
+        require: true
     },
-    {
-        headline: "Quaint Cottage by the Lake",
-        numSleeps: 3,
-        numBedrooms: 1,
-        numBathrooms: 1,
-        pricePerNight: 120,
-        city: "Toronto",
-        province: "Ontario",
-        imageUrl: "/images/property1.webp",
-        featured: false,
+    numBathrooms: {
+        type: Number,
+        require: true
     },
-    {
-        headline: "Modern Downtown Loft",
-        numSleeps: 2,
-        numBedrooms: 1,
-        numBathrooms: 1,
-        pricePerNight: 150,
-        city: "Vancouver",
-        province: "British Columbia",
-        imageUrl: "/images/property2.jpg",
-        featured: true,
+    pricePerNight: {
+        type: Number,
+        require: true
     },
-    {
-        headline: "Charming Cottage in the Woods",
-        numSleeps: 4,
-        numBedrooms: 2,
-        numBathrooms: 1,
-        pricePerNight: 180,
-        city: "Vancouver",
-        province: "British Columbia",
-        imageUrl: "/images/property3.png",
-        featured: false,
+    city: {
+        type: String,
+        require: true
     },
-];
+    province: {
+        type: String,
+        require: true
+    },
+    imageUrl: {
+        type: String,
+        require: true
+    },
+    featured: {
+        type: Boolean,
+        require: true
+    }
+});
 
 function get_featured_rentals() {
-    return rentals.filter(rental => rental.featured);
+    const rentals = rentals_model.find({ featured: true });
 }
 
-function get_rentals_by_city_and_province() {
-    return rentals.reduce((acc, rental) => {
-        const key = `${rental.city}, ${rental.province}`;
-        if (!acc[key]) {
-            acc[key] = [];
-        }
-        acc[key].push(rental);
-        return acc;
-    }, {});
+function get_rentals_by_city_and_province(city, province) {
+    return rentals_model.find({ city: city, province: province });
 }
 
-module.exports = {get_featured_rentals, get_rentals_by_city_and_province};
+function get_rentals_by_headline() {
+    return rentals_model.find().orderBy("headline");
+}
+
+const rentals_model = mongoose.model("rentals", property_schema);
+
+module.exports = {
+    rentals_model,
+    get_featured_rentals, 
+    get_rentals_by_city_and_province,
+    get_rentals_by_headline
+};

@@ -1,4 +1,12 @@
+
 <%- contentFor('body') %>
 <center> 
-    <h1 class="text-3xl font-bold my-8 text-center mb-4">Clerkmode Off: <%= name %> </h1> 
+    <h1 class="text-3xl font-bold my-8 text-center mb-4">Edit rentals</h1>
+    <div class="flex justify-center space-x-4">
+        <ul class="menu menu-horizontal px-1">
+            <li><a href="/rentals/add"><button class="btn btn-primary">Add</button></a></li>
+            <li><a href="/rentals/edit"><button class="btn btn-primary">Edit</button></a></li>
+            <li><a href="/rentals/remove"><button class="btn btn-primary">Delete</button></a></li>
+        </ul>
+    </div>
 </center>

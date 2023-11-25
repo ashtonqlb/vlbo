@@ -18,6 +18,7 @@ const session = require("express-session");
 const app = express();
 
 const general_controller = require("./controllers/general_controller.js");
+const load_data_controller = require("./controllers/load_data_controller.js");
 const rentals_controller = require("./controllers/rentals_controller.js");
 
 app.use(express_layouts);
@@ -40,17 +41,32 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get("/", rentals_controller.get_featured_rentals);
-app.get("/rentals", rentals_controller.get_rentals_by_city_and_province);
+app.get("/", rentals_controller.home);
+
+app.get("/rentals", rentals_controller.rentals);
 app.get("/rentals/list", rentals_controller.rentals_editor);
+
+app.get("/load-data/rentals", load_data_controller.load_default_set);
+
+app.get("/rentals/add", rentals_controller.render_create_rental);
+app.get("/rentals/edit/", rentals_controller.render_update_rental);
+app.get("/rentals/remove", rentals_controller.render_delete_rental);
+
+app.post("/rentals/add", rentals_controller.logic_create_rental);
+//These routes need to reflect the ID of the rental being edited or deleted. Not sure how to do this
+app.post("rentals/edit", rentals_controller.logic_update_rental);
+app.post("/rentals/remove", rentals_controller.logic_delete_rental);
+
 app.get("/cart", rentals_controller.cart);
 
 app.get("/signup", general_controller.sign_up);
+app.post("/signup", general_controller.create_new_user);
+
 app.get("/login", general_controller.log_in);
+app.post('/login', general_controller.validate_login);
+
 app.get("/logout", general_controller.log_out);
 
-app.post("/signup", general_controller.create_new_user);
-app.post('/login', general_controller.validate_login);
 app.post('/welcome', general_controller.welcome);
 
 
