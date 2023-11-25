@@ -3,13 +3,14 @@
 
 <div class="carousel flex flex-col sm:flex-row mx-auto justify-center" data-flickity='{ "wrapAround": true }'>
     <div class="flex flex-wrap">
-        <% if (!all_rentals || Object.keys(all_rentals).length === 0) { %>
+        <% if (!all_rentals || all_rentals.length === 0) { %>
             <p>No data</p>
         <% } else { %>
-        <% for(let rentals of all_rentals) {%>
+        <% for(let id of all_rentals) {%>
             <div class="carousel-cell">
-                <%- include('./partials/rental', {rental: rental}) %>
+                <%- include('./partials/rental', {rental: id}) %>
             </div>
-        <% }}%>
+        <% }
+        }%>
     </div>
 </div>

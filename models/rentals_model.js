@@ -43,8 +43,9 @@ const property_schema = new mongoose.Schema({
     }
 });
 
-function get_featured_rentals() {
+function get_featured_rentals() { // This does not return anything
     const rentals = rentals_model.find({ featured: true });
+    return rentals;
 }
 
 function get_rentals_by_city_and_province(city, province) {
