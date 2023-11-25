@@ -2,12 +2,10 @@
 <center>
     <div class="carousel flex flex-col sm:flex-row mx-auto justify-center" data-flickity='{ "wrapAround": true }'>
         <div class="flex flex-wrap">
-            <% all_rentals.forEach(group => { %>
-                <% group.rentals.forEach(rental => { %>
-                    <div class="carousel-cell">
-                        <%- include('./partials/rental', {rental}) %>
-                    </div>
-                <% }) %>
+            <% all_rentals.forEach(rental => { %>
+                <div class="carousel-cell">
+                    <%- include('./partials/rental', {rental}) %>
+                </div>
             <% }) %>
         </div>
     </div>

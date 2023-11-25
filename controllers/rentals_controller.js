@@ -20,12 +20,12 @@ function home(req, res) {
 
 function rentals(req, res) {
   db.get_rentals_by_city_and_province()
-  .then(groupedRentals => {
-      if (!groupedRentals) {
+  .then(rentals => {
+      if (!rentals) {
           res.render('rentals', { error: 'No data' });
       } else {
-          const groupedRentalsObjects = groupedRentals.map(group => group.toObject());
-          res.render('rentals', { all_rentals: groupedRentalsObjects });
+          const rentalsObjects = rentals.map(rental => rental.toObject());
+          res.render('rentals', { all_rentals: rentalsObjects });
       }
   })
   .catch(err => {
