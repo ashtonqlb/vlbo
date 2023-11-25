@@ -3,11 +3,35 @@
 const db = require("../models/rentals_model.js");
 
 function home(req, res) {
-  res.render("home", { featured_rentals: db.get_featured_rentals()});
+  db.get_featured_rentals()
+  .then(rentals => {
+          if (!rentals) {
+              res.render('home', { error: 'No data' });
+          } else {
+              const rentalsObjects = rentals.map(rental => rental.toObject());
+              res.render('home', { featured_rentals: rentalsObjects });
+          }
+      })
+      .catch(err => {
+          console.error(err);
+          res.render('home', { error: 'An error occurred' });
+      });
 }
 
 function rentals(req, res) {
-  res.render("rentals", { all_rentals: db.get_rentals_by_city_and_province()});
+  db.get_rentals_by_city_and_province()
+  .then(groupedRentals => {
+      if (!groupedRentals) {
+          res.render('rentals', { error: 'No data' });
+      } else {
+          const groupedRentalsObjects = groupedRentals.map(group => group.toObject());
+          res.render('rentals', { all_rentals: groupedRentalsObjects });
+      }
+  })
+  .catch(err => {
+      console.error(err);
+      res.render('rentals', { error: 'An error occurred' });
+  });
 }
 
 function rentals_editor(req, res) { //list
