@@ -1,19 +1,4 @@
 <%- contentFor('body') %>
-<a href="/rentals/list"><button class="btn btn-secondary w-full">Back</button></a>
-
 <div class="flex justify-center">
-    <div class="card w-full max-w-xs">
-      <div class="card-body">
-        <% rentals.forEach(rental => { %>
-            <div class="form-control mt-4">
-                <label class="label">
-                  <span class="label-text"><%= rental.headline %></span>
-                </label>
-                <form action="/rentals/delete/<%= rental._id %>" method="POST">
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </div>
-        <% }) %>
-      </div>
-    </div>
+  <h1 class="text-3xl font-bold my-8 text-center mb-4">Rental deleted!</h1>
 </div>

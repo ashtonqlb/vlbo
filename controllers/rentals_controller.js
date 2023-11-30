@@ -34,9 +34,15 @@ function rentals(req, res) {
   });
 }
 
-function rentals_editor(req, res) { //list
+function rentals_editor(req, res) {
   if (req.session.user && req.session.user.clerk_mode) {
-    res.render("editor", {name: req.session.user.name, editor_action: 'partials/default'});
+    db.rentals_model.find()
+      .then(rentals => {
+        res.render("editor", { rentals: rentals });
+      })
+      .catch(err => {
+        res.status(500).send("Error retrieving rentals: " + err);
+      });
   } else {
     res.redirect("/login");
   }
@@ -52,35 +58,46 @@ function render_create_rental(req, res) {
 
 function render_update_rental(req, res) { 
   if (req.session.user && req.session.user.clerk_mode) {
-    db.get_rentals_by_headline()
-      .then(rentals => {
-        const rentalsObject = rentals.reduce((obj, rental) => {
-          obj[rental._id] = rental;
-          return obj;
-        }, {});
-        res.render("edit", {name: req.session.user.name, rental: rentalsObject});
+    db.rentals_model.findOne({ _id: req.params._id })
+      .then(rental => {
+        res.render("edit", { rental: rental });
       })
       .catch(err => {
-        res.status(500).send("Error retrieving rentals: " + err);
+        res.status(500).send("Error retrieving rental: " + err);
       });
   } else {
     res.redirect("/login");
   }
 }
 
-function render_delete_rental(req, res) { 
+function render_delete_rental(req, res) {
   if (req.session.user && req.session.user.clerk_mode) {
-    db.rentals_model.find()
-      .then(rentals => {
-        res.render("remove", { rentals: rentals });
+    db.rentals_model.findOne({ _id: req.params._id })
+      .then(rental => {
+        res.render("remove", { name: req.session.user.name });
       })
       .catch(err => {
-        res.status(500).send("Error retrieving rentals: " + err);
+        res.status(500).send("Error retrieving rental: " + err);
       });
   } else {
     res.redirect("/login");
   }
-};
+}
+
+function render_update_rental(req, res) { 
+  if (req.session.user && req.session.user.clerk_mode) {
+    db.rentals_model.findOne({ _id: req.params._id })
+      .then(rental => {
+        res.render("remove", { name: req.session.user.name, rental: rental });
+      })
+      .catch(err => {
+        res.status(500).send("Error retrieving rental: " + err);
+      });
+  } else {
+    res.redirect("/login");
+  }
+}
+
 
 function logic_create_rental(req, res) {
   if (req.session.user && req.session.user.clerk_mode) {
@@ -97,7 +114,7 @@ function logic_create_rental(req, res) {
 function logic_update_rental(req, res) {
   if (req.session.user && req.session.user.clerk_mode) {
     db.rentals_model.findOneAndUpdate(
-      { headline: req.body.headline },
+      { _id: req.params._id },
       {
         numSleeps: req.body.numSleeps,
         numBedrooms: req.body.numBedrooms,
@@ -108,38 +125,34 @@ function logic_update_rental(req, res) {
         imageUrl: req.body.imageUrl,
         featured: req.body.featured
       },
-      { new: true },
-      function(err, doc) {
-        if (err) {
-          console.log("Something wrong when updating data!");
-        }
-        console.log(doc);
-      }
-    );
-    res.redirect("/rentals/list");
+      { new: true }
+    )
+    .then(doc => {
+      res.redirect("/rentals/list");
+    })
+    .catch(err => {
+      console.log("Something wrong when updating data!", err);
+    });
   } else {
     res.redirect("/login");
   }
 }
 
-
-
 function logic_delete_rental(req, res) {
   if (req.session.user && req.session.user.clerk_mode) {
-    db.rentals_model.findOneAndDelete({ _id: req.body._id }, function(
-      err,
-      doc
-    ) {
-      if (err) {
-        console.log("Something wrong when deleting data!");
-      }
-      console.log(doc);
-    });
-    res.redirect("/rentals/list");
+    db.rentals_model.findOneAndDelete({ _id: req.params._id })
+      .then(doc => {
+        console.log(doc);
+        res.redirect("/rentals/list");
+      })
+      .catch(err => {
+        console.log("Something wrong when deleting data!", err);
+        res.status(500).send("Internal Server Error");
+      });
   } else {
     res.redirect("/login");
   }
-} 
+}
 
 function cart(req, res) {
   if (req.session.user && !req.session.user.clerk_mode) {

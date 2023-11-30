@@ -1,12 +1,18 @@
-
 <%- contentFor('body') %>
 <center> 
     <h1 class="text-3xl font-bold my-8 text-center mb-4">Edit rentals</h1>
-    <div class="flex justify-center space-x-4">
-        <ul class="menu menu-horizontal px-1">
-            <li><a href="/rentals/add"><button class="btn btn-primary">Add</button></a></li>
-            <li><a href="/rentals/edit"><button class="btn btn-primary">Edit</button></a></li>
-            <li><a href="/rentals/remove"><button class="btn btn-primary">Delete</button></a></li>
-        </ul>
+    <div class="flex flex-col items-center justify-center space-y-4">
+        <a href="/rentals/add"><button class="btn btn-primary">Add</button></a>
+        <% rentals.forEach(rental => { %>
+            <div class="card bordered w-full max-w-md">
+              <div class="card-body">
+                <h2 class="card-title"><%= rental.headline %></h2>
+                <div class="flex justify-between">
+                  <a href="/rentals/edit/<%= rental._id %>"><button class="btn btn-primary">Edit</button></a>
+                  <a href="/rentals/delete/<%= rental._id %>"><button class="btn btn-primary">Delete</button></a>
+                </div>
+              </div>
+            </div>
+        <% }); %>
     </div>
 </center>

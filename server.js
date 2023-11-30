@@ -49,13 +49,27 @@ app.get("/rentals/list", rentals_controller.rentals_editor);
 app.get("/load-data/rentals", load_data_controller.load_default_set);
 
 app.get("/rentals/add", rentals_controller.render_create_rental);
-app.get("/rentals/edit/", rentals_controller.render_update_rental);
-app.get("/rentals/remove", rentals_controller.render_delete_rental);
+
+app.get('/rentals/edit/:_id', function(req, res) {
+    let id = req.params._id;
+    rentals_controller.render_update_rental(req, res);
+});
+
+app.get("/rentals/remove/:_id", function(req, res) {
+    let id = req.params._id;
+    rentals_controller.render_delete_rental(req, res);
+});
 
 app.post("/rentals/add", rentals_controller.logic_create_rental);
-//These routes need to reflect the ID of the rental being edited or deleted. Not sure how to do this
-app.post("rentals/edit", rentals_controller.logic_update_rental);
-app.post("/rentals/remove", rentals_controller.logic_delete_rental);
+app.post('/rentals/edit/:_id', function(req, res) {
+    let id = req.params._id;
+    rentals_controller.logic_update_rental(req, res);
+});
+
+app.post("/rentals/remove/:_id", function(req, res) {
+    let id = req.params._id;
+    rentals_controller.logic_delete_rental(req, res);
+});
 
 app.get("/cart", rentals_controller.cart);
 
