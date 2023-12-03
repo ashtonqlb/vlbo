@@ -8,5 +8,10 @@
     <p>$<%= rental.pricePerNight %> per Night</p>
     <p><%= rental.numBedrooms %> Bedrooms</p>
     <p><%= rental.numBathrooms %> Bathrooms</p>
+    <% if (user && !user.clerk_mode) { %>
+      <a href="/cart/add<% rental._id %>">
+        <button style="background-color: #39FF14; color: white; padding: 10px 20px;">Rent</button>
+      </a>
+    <% } %>
   </div>
 </div>

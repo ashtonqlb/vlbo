@@ -1,1 +1,19 @@
-<center> <h1 class="text-3xl font-bold my-8 text-center mb-4">Clerkmode Off, <%= name %></h1> </center>
+<h1 class="text-3xl font-bold my-8 text-center mb-4">Cart</h1>
+
+<% if (cart.length === 0) { %>
+    <p>No rentals added!</p>
+<% } else {  
+for(let i = 0; i < cart.length; i++) { %>
+    <div class="rental-card">
+      <h2><%= cart[i].headline %></h2>
+      <p><%= cart[i].city %>, <%= cart[i].province %></p>
+      <p>$<%= cart[i].pricePerNight %> per Night</p>
+      <p><%= cart[i].numBedrooms %> Bedrooms</p>
+      <p><%= cart[i].numBathrooms %> Bathrooms</p>
+      <form method="POST" action="/cart/delete">
+        <input type="hidden" name="rentalId" value="<%= cart[i].id %>">
+        <button type="submit">Delete</button>
+      </form>
+    </div>
+<% }
+} %>

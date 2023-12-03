@@ -156,15 +156,43 @@ function logic_delete_rental(req, res) {
 
 function cart(req, res) {
   if (req.session.user && !req.session.user.clerk_mode) {
-    res.render("cart", {name: req.session.user.name});
+    res.render("cart", {name: req.session.user.name, cart: req.session.cart });
   } else {
     res.redirect("/login");
   }
 }
 
+function add_to_cart(req, res) {
+  let id = req.params._id;
+
+  db.rentals_model.findById(id, function(err, rental) {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Internal Server Error");
+    } else if (!rental) {
+      res.status(404).send("Not Found");
+    } else {
+      req.session.cart.push(rental);
+      res.redirect("/cart");
+    }
+  });
+}
+
+function delete_from_cart(req, res) {
+  let rentalId = req.body.rentalId;
+  let index = req.session.cart.findIndex(rental => rental._id.toString() === rentalId);
+  if (index !== -1) {
+    req.session.cart.splice(index, 1);
+  }
+
+  res.redirect("/cart");
+}
+
 module.exports = {
   home,
   rentals,
+  delete_from_cart,
+  add_to_cart,
   cart,
 
   rentals_editor,

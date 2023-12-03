@@ -37,6 +37,7 @@ app.set("layout", __dirname + "/views/layout/main.ejs");
 app.use(express.static(path.join(__dirname, "assets")));
 
 app.use((req, res, next) => {
+    req.session.cart = req.session.cart || [];
     res.locals.user = req.session.user;
     next();
 });
@@ -72,6 +73,8 @@ app.post("/rentals/remove/:_id", function(req, res) {
 });
 
 app.get("/cart", rentals_controller.cart);
+app.post("/cart/add", rentals_controller.add_to_cart);
+app.post("/cart/delete", rentals_controller.delete_from_cart);
 
 app.get("/signup", general_controller.sign_up);
 app.post("/signup", general_controller.create_new_user);
