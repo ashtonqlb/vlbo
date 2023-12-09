@@ -20,11 +20,18 @@ function validate_new_user (req, res) {
         errors.push("Invalid password!");
     }
 
-    if (errors.length > 0) {
+    if (errors.length > 0 && errors.isArray()) {
         res.render("sign-up", { errors: errors });
     } else {
-        user_model.create({ name: req.body.name, email: req.body.email, password: req.body.password });
-        welcome(req, res);
+        bcrypt.hash(req.body.password, 10, function(err, hash) {
+            if (err) {
+                console.log(err);
+                res.render("sign-up", { errors: ["An error occurred while hashing the password."] });
+            } else {
+                user_model.create({ name: req.body.name, email: req.body.email, password: hash });
+                welcome(req, res);
+            }
+        });
     }
 }
 
@@ -89,7 +96,14 @@ function log_in(req, res) {
 }
 
 function create_new_user(req, res) {
-    validate_new_user(req, res);
+    user_model.findOne({ $or: [{ name: req.body.name }, { email: req.body.email }] })
+    .then(user => {
+        if (user) {
+            res.render('sign-up', { errors: 'A user with this name or email already exists.' });
+        } else {
+            validate_new_user(req, res);
+        }
+    });
 }
 
 function log_out(req, res) {

@@ -6,6 +6,8 @@
 for(let i = 0; i < cart.length; i++) { %>
     <div class="rental-card">
       <h2><%= cart[i].headline %></h2>
+      <h3>Subtotal: $<%= subtotal %></h3>
+      <h3>VAT: $<%= vat %></h3>
       <p><%= cart[i].city %>, <%= cart[i].province %></p>
       <p>$<%= cart[i].pricePerNight %> per Night</p>
       <p><%= cart[i].numBedrooms %> Bedrooms</p>
@@ -17,3 +19,5 @@ for(let i = 0; i < cart.length; i++) { %>
     </div>
 <% }
 } %>
+
+<p>Grand Total: $<%= grandTotal %></p>

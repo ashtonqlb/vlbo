@@ -156,7 +156,19 @@ function logic_delete_rental(req, res) {
 
 function cart(req, res) {
   if (req.session.user && !req.session.user.clerk_mode) {
-    res.render("cart", {name: req.session.user.name, cart: req.session.cart });
+    let subtotal = 0;
+    let vat = 0;
+    let grandTotal = 0;
+
+    for (let i = 0; i < req.session.cart.length; i++) {
+      subtotal = req.session.cart[i].pricePerNight * req.session.cart[i].nightsStaying;
+      vat += subtotal * 0.2;
+      grandTotal += subtotal;
+    }
+
+    grandTotal += vat;
+
+    res.render("cart", {name: req.session.user.name, cart: req.session.cart, subtotal: subtotal, vat: vat, grandTotal: grandTotal});
   } else {
     res.redirect("/login");
   }
