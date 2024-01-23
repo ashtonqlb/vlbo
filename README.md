@@ -10,6 +10,8 @@ A parody of the [Vrbo](https://www.vrbo.com/) rental website which is also my fi
 
 Available to view on [Cyclic](https://combative-leotard-elk.cyclic.app/)
 
+**This project is unfinished and the code is horribly ugly. I am very sorry to all of the wonderful developers whose wonderfully written libraries I have sullied.**
+
 ## Installation
 
 
